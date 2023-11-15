@@ -140,6 +140,18 @@ public function update(Request $request, $id)
     return redirect()->route('reservations.check.form')->with('success', 'Reserva atualizada com sucesso!');
 }
 
+public function destroy($id)
+{
+    $reservation = Reservation::findOrFail($id);
+    $reservation->delete();
 
+        return view('reservations.deleted')->with('warning', 'Reserva deletada com sucesso!');
+    }
+
+public function deleted()
+{
+
+        return view('reservations.deleted');
+    }
 
 }

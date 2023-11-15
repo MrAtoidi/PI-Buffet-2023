@@ -97,24 +97,15 @@
                                             <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                                 <div class="flex space-x-2">
                                                     <a href="{{ route('reservations.guest-edit', $reservation->id) }}"
-                                                        class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Edit</a>
+                                                        class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Editar</a>
                                                     <form
                                                         class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                                         method="POST"
-                                                        action="{{ route('admin.reservations.destroy', $reservation->id) }}"
-                                                        onsubmit="return confirm('Are you sure?');">
+                                                        action="{{ route('reservations.destroy', $reservation->id) }}"
+                                                        onsubmit="return confirm('Você tem certeza?');">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit">Delete</button>
-                                                    </form>
-                                                    <form
-                                                        class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white"
-                                                        method="POST"
-                                                        action="{{ route('admin.reservations.confirm', $reservation->id) }}"
-                                                        onsubmit="return confirm('Are you sure?');">
-                                                        @csrf
-                                                        <button
-                                                            type="submit">{{ $reservation->status == '1' ? 'Cancelar' : 'Confirmar' }}</button>
+                                                        <button type="submit">Cancelar</button>
                                                     </form>
                                                 </div>
                                             </td>

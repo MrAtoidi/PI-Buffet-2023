@@ -22,6 +22,8 @@ Route::get('/reservation/step-two', [FrontendReservationController::class, 'step
 Route::post('/reservation/step-two', [FrontendReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
 Route::get('/reservation/verificar/{email}', [FrontendReservationController::class, 'verify'])->name('reservations.verify');
 Route::get('/reservation/editar/{id}', [FrontendReservationController::class, 'edit'])->name('reservations.guest-edit');
+Route::get('/reservation/deleted', [FrontendReservationController::class, 'deleted'])->name('reservations.deleted');
+Route::delete('/reservation/deletar/{id}', [FrontendReservationController::class, 'destroy'])->name('reservations.destroy');
 Route::put('/reservation/{id}', [FrontendReservationController::class, 'update'])->name('reservations.update');
 
 Route::get('/reservation/check', [FrontendReservationController::class, 'getEmailForm'])->name('reservations.check.form');
