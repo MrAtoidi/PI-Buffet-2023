@@ -44,17 +44,17 @@ class ReservationController extends Controller
     {
         $table = Table::findOrFail($request->table_id);
         if ($request->guest_number > $table->guest_number) {
-            return back()->with('warning', 'Please choose the table base on guests.');
+            return back()->with('warning', 'Por favor, escolha um pacote de comidas');
         }
         $request_date = Carbon::parse($request->res_date);
         foreach ($table->reservations as $res) {
-            if ($res->res_date->format('Y-m-d') == $request_date->format('Y-m-d')) {
-                return back()->with('warning', 'This table is reserved for this date.');
+            if ($res->res_date->format('d-m-Y') == $request_date->format('d-m-Y')) {
+                return back()->with('warning', 'Este horário não está disponível');
             }
         }
         Reservation::create($request->validated());
 
-        return to_route('admin.reservations.index')->with('success', 'Reservation created successfully.');
+        return to_route('admin.reservations.index')->with('success', 'Reserva efetuada com sucesso');
     }
 
     /**
@@ -91,18 +91,18 @@ class ReservationController extends Controller
     {
         $table = Table::findOrFail($request->table_id);
         if ($request->guest_number > $table->guest_number) {
-            return back()->with('warning', 'Please choose the table base on guests.');
+            return back()->with('warning', 'Por favor, escolha um pacote de comidas');
         }
         $request_date = Carbon::parse($request->res_date);
         $reservations = $table->reservations()->where('id', '!=', $reservation->id)->get();
         foreach ($reservations as $res) {
-            if ($res->res_date->format('Y-m-d') == $request_date->format('Y-m-d')) {
-                return back()->with('warning', 'This table is reserved for this date.');
+            if ($res->res_date->format('d-m-Y') == $request_date->format('d-m-Y')) {
+                return back()->with('warning', 'Esse horário não está disponível!');
             }
         }
 
         $reservation->update($request->validated());
-        return to_route('admin.reservations.index')->with('success', 'Reservation updated successfully.');
+        return to_route('admin.reservations.index')->with('success', 'Reserva atualizada com sucesso!');
     }
 
     /**
@@ -115,6 +115,23 @@ class ReservationController extends Controller
     {
         $reservation->delete();
 
-        return to_route('admin.reservations.index')->with('warning', 'Reservation deleted successfully.');
+        return to_route('admin.reservations.index')->with('warning', 'Reserva deletada com sucesso!');
     }
+
+    public function confirm(Reservation $reservation)
+    {
+        if($reservation->status == 1){
+            $reservation->status = 0;
+            $msg = 'Reserva cancelada com sucesso!';
+        } else {
+            $reservation->status = 1;
+            $msg = 'Reserva confirmada com sucesso!';
+        }
+
+        $reservation->save();
+
+        return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
+
 }

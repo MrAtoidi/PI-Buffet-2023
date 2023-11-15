@@ -34,6 +34,9 @@ class ReservationStoreRequest extends FormRequest
             'tel_number' => ['required'],
             'table_id' => ['required'],
             'guest_number' => ['required'],
+            'status' => ['required'],
+            'idade' => ['nullable'],
+            'cpf' => ['nullable']
         ];
     }
 }

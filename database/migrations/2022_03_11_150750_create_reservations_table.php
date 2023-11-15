@@ -22,6 +22,9 @@ return new class extends Migration
             $table->dateTime('res_date');
             $table->unsignedBigInteger('table_id');
             $table->integer('guest_number');
+            $table->string('cpf');
+            $table->integer('idade');
+            $table->integer('status')->default('0')->comment('0=pendente,1=confirmado');
             $table->timestamps();
         });
     }

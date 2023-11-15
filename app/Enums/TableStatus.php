@@ -5,6 +5,6 @@ namespace App\Enums;
 enum TableStatus: string
 {
     case Pending = 'pending';
-    case Avalaiable = 'avaliable';
+    case Available = 'avaliable';
     case Unavaliable = 'unavaliable';
 }

@@ -61,6 +61,29 @@
                             @enderror
                         </div>
                         <div class="sm:col-span-6">
+                            <label for="cpf" class="block text-sm font-medium text-gray-700"> CPF </label>
+                            <div class="mt-1">
+                                <input type="text" id="cpf" name="cpf"
+                                    value="{{ $reservation->cpf ?? '' }}"
+                                    class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                            </div>
+                            @error('cpf')
+                                <div class="text-sm text-red-400">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="sm:col-span-6">
+                            <label for="idade" class="block text-sm font-medium text-gray-700"> Idade
+                            </label>
+                            <div class="mt-1">
+                                <input type="number" id="idade" name="idade"
+                                    value="{{ $reservation->idade ?? '' }}"
+                                    class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                            </div>
+                            @error('idade')
+                                <div class="text-sm text-red-400">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="sm:col-span-6">
                             <label for="res_date" class="block text-sm font-medium text-gray-700"> Reservation Date
                             </label>
                             <div class="mt-1">

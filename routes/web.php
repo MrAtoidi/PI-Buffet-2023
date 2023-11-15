@@ -20,6 +20,11 @@ Route::get('/reservation/step-one', [FrontendReservationController::class, 'step
 Route::post('/reservation/step-one', [FrontendReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
 Route::get('/reservation/step-two', [FrontendReservationController::class, 'stepTwo'])->name('reservations.step.two');
 Route::post('/reservation/step-two', [FrontendReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
+Route::get('/reservation/verificar/{email}', [FrontendReservationController::class, 'verify'])->name('reservations.verify');
+Route::get('/reservation/editar/{id}', [FrontendReservationController::class, 'edit'])->name('reservations.guest-edit');
+Route::put('/reservation/{id}', [FrontendReservationController::class, 'update'])->name('reservations.update');
+
+Route::get('/reservation/check', [FrontendReservationController::class, 'getEmailForm'])->name('reservations.check.form');
 Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
 
 Route::get('/dashboard', function () {
@@ -32,6 +37,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/menus', MenuController::class);
     Route::resource('/tables', TableController::class);
     Route::resource('/reservations', ReservationController::class);
+    Route::post('/reservations/{reservation}/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
 });
 
 require __DIR__ . '/auth.php';

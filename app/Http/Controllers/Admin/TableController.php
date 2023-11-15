@@ -83,7 +83,7 @@ class TableController extends Controller
     {
         $table->update($request->validated());
 
-        return to_route('admin.tables.index')->with('success', 'Table updated successfully.');
+        return to_route('admin.tables.index')->with('success', 'Pacote de comida atualizado com sucesso');
     }
 
     /**
@@ -97,6 +97,6 @@ class TableController extends Controller
         $table->reservations()->delete();
         $table->delete();
 
-        return to_route('admin.tables.index')->with('danger', 'Table daleted successfully.');
+        return to_route('admin.tables.index')->with('danger', 'Pacote de comida deletado com sucesso');
     }
 }
