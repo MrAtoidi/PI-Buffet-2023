@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class MenuController extends Controller
 {
@@ -54,17 +55,29 @@ class MenuController extends Controller
         $menu = Menu::create([
             'name' => $request->name,
             'description' => $request->description,
-            'guest_number' => $request->guest_number,
             'image' => $filename,
             'price' => $request->price
         ]);
 
         if ($request->has('categories')) {
             $menu->categories()->attach($request->categories);
+            $this->updateCategoryPrices($request->categories);
         }
+
 
         return to_route('admin.menus.index')->with('success', 'Menu created successfully.');
     }
+
+    private function updateCategoryPrices(array $categoryIds)
+{
+    $categories = Category::whereIn('id', $categoryIds)->get();
+
+    foreach ($categories as $category) {
+        $category->update([
+            'price' => $category->menus->sum('price')
+        ]);
+    }
+}
 
 
     /**
@@ -87,32 +100,36 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Menu $menu)
-    {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'guest_number' => 'required',
-            'price' => 'required'
-        ]);
-        $image = $menu->image;
-        if ($request->hasFile('image')) {
-            Storage::delete($menu->image);
-            $image = $request->file('image')->store('public/menus');
-        }
+{
+    $request->validate([
+        'name' => 'required',
+        'description' => 'required',
+        'price' => 'required'
+    ]);
 
-        $menu->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'guest_number' => $request->guest_number,
-            'image' => $image,
-            'price' => $request->price
-        ]);
+    // Update the menu attributes
+    $menu->fill([
+        'name' => $request->name,
+        'description' => $request->description,
+        'price' => $request->price
+    ]);
 
-        if ($request->has('categories')) {
-            $menu->categories()->sync($request->categories);
-        }
-        return to_route('admin.menus.index')->with('success', 'Menu updated successfully.');
+    if ($request->hasFile('image')) {
+        Storage::delete($menu->image);
+        $image = $request->file('image')->store('public/menus');
+        $menu->image = $image;
     }
+
+    // Save the updated menu
+    $menu->save();
+
+    // Sync categories
+    if ($request->has('categories')) {
+        $menu->categories()->sync($request->categories);
+    }
+
+    return redirect()->route('admin.menus.index')->with('success', 'Menu updated successfully.');
+}
 
     /**
      * Remove the specified resource from storage.

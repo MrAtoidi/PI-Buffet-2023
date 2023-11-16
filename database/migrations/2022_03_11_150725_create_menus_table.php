@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('image');
-            $table->integer('guest_number');
             $table->decimal('price', 10, 2);
             $table->timestamps();
         });

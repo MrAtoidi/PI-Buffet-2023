@@ -6,7 +6,7 @@ use App\Enums\TableStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
 use App\Models\Reservation;
-use App\Models\Menu;
+use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -30,7 +30,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        $tables = Menu::get();
+        $tables = Category::get();
         return view('admin.reservations.create', compact('tables'));
     }
 
@@ -42,7 +42,7 @@ class ReservationController extends Controller
      */
     public function store(ReservationStoreRequest $request)
     {
-        $table = Menu::findOrFail($request->table_id);
+        $table = Category::findOrFail($request->table_id);
         if ($request->guest_number > $table->guest_number) {
             return back()->with('warning', 'Por favor, escolha um pacote de comidas');
         }
@@ -76,7 +76,7 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
-        $tables = Menu::get();
+        $tables = Category::get();
         return view('admin.reservations.edit', compact('reservation', 'tables'));
     }
 
@@ -89,7 +89,7 @@ class ReservationController extends Controller
      */
     public function update(ReservationStoreRequest $request, Reservation $reservation)
     {
-        $table = Menu::findOrFail($request->table_id);
+        $table = Category::findOrFail($request->table_id);
         if ($request->guest_number > $table->guest_number) {
             return back()->with('warning', 'Por favor, escolha um pacote de comidas');
         }

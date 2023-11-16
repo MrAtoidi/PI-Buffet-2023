@@ -51,6 +51,7 @@ class CategoryController extends Controller
         Category::create([
             'name' => $request->name,
             'description' => $request->description,
+            'guest_number' => $request->guest_number,
             'image' => $filename
         ]);
 
@@ -90,7 +91,8 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'guest_number' => 'required',
         ]);
         $image = $category->image;
         if ($request->hasFile('image')) {
@@ -101,6 +103,7 @@ class CategoryController extends Controller
         $category->update([
             'name' => $request->name,
             'description' => $request->description,
+            'guest_number' => $request->guest_number,
             'image' => $image
         ]);
         return to_route('admin.categories.index')->with('success', 'Category updated successfully.');

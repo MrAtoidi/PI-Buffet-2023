@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('guest_number');
+            $table->integer('price')->default('0');
             $table->text('description');
             $table->string('image');
             $table->timestamps();

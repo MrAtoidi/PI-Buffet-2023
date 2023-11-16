@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Menu;
+use App\Observers\MenuObserver;
 
 class AppServiceProvider extends ServiceProvider
 {

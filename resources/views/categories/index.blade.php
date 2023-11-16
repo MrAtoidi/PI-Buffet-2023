@@ -10,7 +10,9 @@
                             <h4
                                 class="mb-3 text-xl font-semibold tracking-tight text-green-600 hover:text-green-400 uppercase">
                                 {{ $category->name }}</h4>
+                            <span class="text-xl text-green-600">R${{ $category->price }}</span>
                         </a>
+
                     </div>
                 </div>
             @endforeach

@@ -41,16 +41,16 @@
             <nav :class="{ 'block': open, 'hidden': !open }"
                 class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
                 <x-admin-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
-                    {{ __('Categories') }}
+                    {{ __('Pacotes de comida') }}
                 </x-admin-nav-link>
                 <x-admin-nav-link :href="route('admin.menus.index')" :active="request()->routeIs('admin.menus.index')">
-                    {{ __('Pacotes de comida') }}
+                    {{ __('Opções de comida') }}
                 </x-admin-nav-link>
                 <x-admin-nav-link :href="route('admin.tables.index')" :active="request()->routeIs('admin.tables.index')">
                     {{ __('Tables') }}
                 </x-admin-nav-link>
                 <x-admin-nav-link :href="route('admin.reservations.index')" :active="request()->routeIs('admin.reservations.index')">
-                    {{ __('Reservations') }}
+                    {{ __('Próximas festas') }}
                 </x-admin-nav-link>
                 <div @click.away="open = false" class="relative" x-data="{ open: false }">
                     <button @click="open = !open"

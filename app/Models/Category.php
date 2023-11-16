@@ -9,10 +9,21 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'image', 'description'];
+    protected $fillable = ['name', 'image', 'price', 'guest_number', 'description'];
 
     public function menus()
     {
         return $this->belongsToMany(Menu::class, 'category_menu');
+    }
+
+    public function getTotalPriceAttribute()
+    {
+        // Obtém todos os menus associados a esta categoria
+        $menus = $this->menus;
+
+        // Calcula a soma dos preços dos menus
+        $totalPrice = $menus->sum('price');
+
+        return $totalPrice;
     }
 }
