@@ -12,9 +12,15 @@ use App\Rules\TimeBetween;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReservationStoreRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function stepOne(Request $request)
     {
         $reservation = $request->session()->get('reservation');
@@ -22,29 +28,27 @@ class ReservationController extends Controller
     }
 
     public function storeStepOne(Request $request)
-    {
-        $validated = $request->validate([
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'email' => ['required', 'email'],
-            'tel_number' => ['required'],
-            'guest_number' => ['required'],
-            'cpf' => ['required'],
-            'idade' => ['required']
-        ]);
+{
+    $validated = $request->validate([
+        'first_name' => ['required'],
+        'last_name' => ['required'],
+        'email' => ['required', 'email'],
+        'tel_number' => ['required'],
+        'guest_number' => ['required'],
+        'cpf' => ['required'],
+        'idade' => ['required']
+    ]);
 
-        if (empty($request->session()->get('reservation'))) {
-            $reservation = new Reservation();
-            $reservation->fill($validated);
-            $request->session()->put('reservation', $reservation);
-        } else {
-            $reservation = $request->session()->get('reservation');
-            $reservation->fill($validated);
-            $request->session()->put('reservation', $reservation);
-        }
+    $reservation = new Reservation();
+    $reservation->fill($validated);
 
-        return to_route('reservations.step.two');
-    }
+    // Define o user_id do usuário autenticado
+    $reservation->user_id = Auth::id();
+
+    $request->session()->put('reservation', $reservation);
+
+    return to_route('reservations.step.two');
+}
     public function stepTwo(Request $request)
 {
     $reservation = $request->session()->get('reservation');
@@ -105,7 +109,8 @@ class ReservationController extends Controller
 public function edit($id)
 {
     $reservation = Reservation::findOrFail($id);
-    $tables = Table::where('status', TableStatus::Available)->get();
+    $tables = Category::where('guest_number', '>=', $reservation->guest_number)
+        ->get();
 
     return view('reservations.guest-edit', compact('reservation', 'tables'));
 }
@@ -118,7 +123,7 @@ public function update(Request $request, $id)
         'email' => ['required', 'email', 'max:255'],
         'tel_number' => ['required', 'string', 'max:20'],
         'res_date' => ['required', 'date'],
-        'table_id' => ['required', 'exists:tables,id'],
+        'table_id' => ['required', 'exists:categories,id'],
         'guest_number' => ['required', 'integer', 'min:1'],
         'cpf' => ['required', 'string'],
         'idade' => ['required', 'integer'],
@@ -137,7 +142,7 @@ public function update(Request $request, $id)
         'idade' => $validated['idade'],
     ]);
 
-    return redirect()->route('reservations.check.form')->with('success', 'Reserva atualizada com sucesso!');
+    return redirect()->route('dashboard')->with('success', 'Reserva atualizada com sucesso!');
 }
 
 public function destroy($id)
