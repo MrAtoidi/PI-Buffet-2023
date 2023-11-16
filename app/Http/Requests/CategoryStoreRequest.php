@@ -22,12 +22,14 @@ class CategoryStoreRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        return [
-            'name' => ['required'],
-            'image' => ['required', 'image'],
-            'guest_number' => ['required'],
-            'description' => ['required'],
-        ];
-    }
+{
+    return [
+        'name' => 'required',
+        'description' => 'required',
+        'guest_number' => 'required',
+        'image1' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image2' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image3' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ];
+}
 }

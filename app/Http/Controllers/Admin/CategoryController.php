@@ -7,6 +7,8 @@ use App\Http\Requests\CategoryStoreRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -37,26 +39,42 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryStoreRequest $request)
-    {
-        //$image = $request->file('image')->store('/public/categories');
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time().'.'.$ext;
-            $file->move('public/categories/', $filename);
-            $validatedData['image'] = "public/categories/$filename";
-        }
+public function store(CategoryStoreRequest $request)
+{
+    $validatedData = $request->validate([
+        'name' => 'required',
+        'description' => 'required',
+        'guest_number' => 'required',
+        'image1' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image2' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image3' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        Category::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'guest_number' => $request->guest_number,
-            'image' => $filename
-        ]);
+    $file1 = $request->file('image1');
+    $file2 = $request->file('image2');
+    $file3 = $request->file('image3');
 
-        return to_route('admin.categories.index')->with('success', 'Category created successfully.');
-    }
+    $filename1 = time() . '_1.' . $file1->getClientOriginalExtension();
+    $file1->move('public/categories/', $filename1);
+
+    $filename2 = time() . '_2.' . $file2->getClientOriginalExtension();
+    $file2->move('public/categories/', $filename2);
+
+    $filename3 = time() . '_3.' . $file3->getClientOriginalExtension();
+    $file3->move('public/categories/', $filename3);
+
+    Category::create([
+        'name' => $validatedData['name'],
+        'description' => $validatedData['description'],
+        'guest_number' => $validatedData['guest_number'],
+        'image1' => "$filename1",
+        'image2' => "$filename2",
+        'image3' => "$filename3",
+    ]);
+
+    return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
+}
+
 
     /**
      * Display the specified resource.
@@ -87,27 +105,59 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+public function update(Request $request, Category $category)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
             'guest_number' => 'required',
+            'image1' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image2' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image3' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        $image = $category->image;
-        if ($request->hasFile('image')) {
-            Storage::delete($category->image);
-            $image = $request->file('image')->store('public/categories');
-        }
 
-        $category->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'guest_number' => $request->guest_number,
-            'image' => $image
-        ]);
-        return to_route('admin.categories.index')->with('success', 'Category updated successfully.');
+        $category->name = $validatedData['name'];
+        $category->description = $validatedData['description'];
+        $category->guest_number = $validatedData['guest_number'];
+
+        Log::info(Storage::exists($category->image1));
+        Log::info($category->image1);
+
+        if ($request->hasFile('image1')) {
+
+        if (File::exists($category->image1)) {
+            File::delete($category->image1);
+        }
+        $file1 = $request->file('image1');
+        $filename1 = time() . '_1.' . $file1->getClientOriginalExtension();
+        $file1->move('public/categories/', $filename1);
+        $category->image1 = "$filename1";
     }
+
+        if ($request->hasFile('image2')) {
+        if (Storage::exists($category->image2)) {
+            Storage::delete($category->image2);
+        }
+        $file2 = $request->file('image2');
+        $filename2 = time() . '_2.' . $file2->getClientOriginalExtension();
+        $file2->move('public/categories/', $filename2);
+        $category->image2 = "$filename2";
+    }
+
+        if ($request->hasFile('image3')) {
+        if (Storage::exists($category->image3)) {
+            Storage::delete($category->image3);
+        }
+        $file3 = $request->file('image3');
+        $filename3 = time() . '_3.' . $file3->getClientOriginalExtension();
+        $file3->move('public/categories/', $filename3);
+        $category->image3 = "$filename3";
+    }
+
+        $category->save();
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
+}
 
     /**
      * Remove the specified resource from storage.

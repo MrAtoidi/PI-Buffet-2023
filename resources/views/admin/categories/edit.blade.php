@@ -28,15 +28,54 @@
                             @enderror
                         </div>
                         <div class="sm:col-span-6">
-                            <label for="image" class="block text-sm font-medium text-gray-700"> Image </label>
-                            <div>
-                                <img class="w-32 h-32" src="{{ url("/public/categories/$category->image") }}">
-                            </div>
+                            <label for="guest_number" class="block text-sm font-medium text-gray-700"> Convidados
+                            </label>
                             <div class="mt-1">
-                                <input type="file" id="image" name="image"
+                                <input type="text" id="guest_number" name="guest_number"
+                                    value="{{ $category->guest_number }}"
                                     class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                             </div>
-                            @error('image')
+                            @error('guest_number')
+                                <div class="text-sm text-red-400">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="sm:col-span-6">
+                            <label for="image1" class="block text-sm font-medium text-gray-700"> Image 1 </label>
+                            <div>
+                                <img class="w-32 h-32" src="{{ url("/public/categories/$category->image1") }}">
+                            </div>
+                            <div class="mt-1">
+                                <input type="file" id="image1" name="image1"
+                                    class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                            </div>
+                            @error('image1')
+                                <div class="text-sm text-red-400">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="sm:col-span-6">
+                            <label for="image2" class="block text-sm font-medium text-gray-700"> Image 1 </label>
+                            <div>
+                                <img class="w-32 h-32" src="{{ url("/public/categories/$category->image2") }}">
+                            </div>
+                            <div class="mt-1">
+                                <input type="file" id="image2" name="image2"
+                                    class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                            </div>
+                            @error('image2')
+                                <div class="text-sm text-red-400">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="sm:col-span-6">
+                            <label for="image3" class="block text-sm font-medium text-gray-700"> Image 1 </label>
+                            <div>
+                                <img class="w-32 h-32" src="{{ url("/public/categories/$category->image3") }}">
+                            </div>
+                            <div class="mt-1">
+                                <input type="file" id="image3" name="image3"
+                                    class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                            </div>
+                            @error('image3')
                                 <div class="text-sm text-red-400">{{ $message }}</div>
                             @enderror
                         </div>
