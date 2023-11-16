@@ -54,6 +54,7 @@ class MenuController extends Controller
         $menu = Menu::create([
             'name' => $request->name,
             'description' => $request->description,
+            'guest_number' => $request->guest_number,
             'image' => $filename,
             'price' => $request->price
         ]);
@@ -90,6 +91,7 @@ class MenuController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
+            'guest_number' => 'required',
             'price' => 'required'
         ]);
         $image = $menu->image;
@@ -101,6 +103,7 @@ class MenuController extends Controller
         $menu->update([
             'name' => $request->name,
             'description' => $request->description,
+            'guest_number' => $request->guest_number,
             'image' => $image,
             'price' => $request->price
         ]);

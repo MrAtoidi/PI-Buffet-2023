@@ -64,6 +64,18 @@
                             @enderror
                         </div>
                         <div class="sm:col-span-6 pt-5">
+                            <label for="body" class="block text-sm font-medium text-gray-700">Guests</label>
+                            <div class="mt-1">
+                                <textarea id="body" rows="3" name="guest_number"
+                                    class="shadow-sm focus:ring-indigo-500 appearance-none bg-white border py-2 px-3 text-base leading-normal transition duration-150 ease-in-out focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                                {{ $menu->guest_number }}
+                                </textarea>
+                            </div>
+                            @error('guest_number')
+                                <div class="text-sm text-red-400">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="sm:col-span-6 pt-5">
                             <label for="categories" class="block text-sm font-medium text-gray-700">Categories</label>
                             <div class="mt-1">
                                 <select id="categories" name="categories[]" class="form-multiselect block w-full mt-1"

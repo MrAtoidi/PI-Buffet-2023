@@ -12,6 +12,9 @@
                     <div class="flex items-center justify-between p-4">
                         <span class="text-xl text-green-600">${{ $menu->price }}</span>
                     </div>
+                    <div class="flex items-center justify-between p-4">
+                        <span class="text-xl text-green-600">${{ $menu->guest_number }}</span>
+                    </div>
                 </div>
             @endforeach
         </div>

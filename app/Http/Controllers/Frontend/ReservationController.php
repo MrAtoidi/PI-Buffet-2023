@@ -6,6 +6,7 @@ use App\Enums\TableStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Models\Table;
+use App\Models\Menu;
 use App\Rules\DateBetween;
 use App\Rules\TimeBetween;
 use Carbon\Carbon;
@@ -54,8 +55,7 @@ class ReservationController extends Controller
         ->orderBy('res_date')
         ->pluck('table_id');
 
-    $tables = Table::where('status', TableStatus::Available)
-        ->where('guest_number', '>=', $reservation->guest_number)
+    $tables = Menu::where('guest_number', '>=', $reservation->guest_number)
         ->whereNotIn('id', $res_table_ids)
         ->get();
 
