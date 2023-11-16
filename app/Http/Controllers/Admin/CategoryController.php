@@ -167,7 +167,9 @@ public function update(Request $request, Category $category)
      */
     public function destroy(Category $category)
     {
-        Storage::delete($category->image);
+        Storage::delete($category->image1);
+        Storage::delete($category->image2);
+        Storage::delete($category->image3);
         $category->menus()->detach();
         $category->delete();
 

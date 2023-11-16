@@ -44,8 +44,28 @@
                                             </td>
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <img src="{{ url("/public/categories/$category->image") }}"
-                                                    alt="" class="w-16 h-16 rounded">
+                                                <div class="shadow-md sm:rounded-lg flex items-center justify-center">
+                                                    <div class="carousel-{{ $category->id }}">
+                                                        <!-- Carrossel para esta categoria -->
+                                                        <div class="carousel-item">
+                                                            <div class="inline-block"
+                                                                style="width: 100px; height: 100px;">
+                                                                <!-- Adicione a lógica para as imagens desta categoria aqui -->
+                                                                <div class="carousel-{{ $category->id }}">
+                                                                    <img src="{{ url("/public/categories/$category->image1") }}"
+                                                                        alt=""
+                                                                        class="w-12 h-12 rounded imgslider">
+                                                                    <img src="{{ url("/public/categories/$category->image2") }}"
+                                                                        alt=""
+                                                                        class="w-12 h-12 rounded imgslider">
+                                                                    <img src="{{ url("/public/categories/$category->image3") }}"
+                                                                        alt=""
+                                                                        class="w-12 h-12 rounded imgslider">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -68,6 +88,19 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <script type="text/javascript">
+                                            // Carrossel para esta categoria
+                                            $(document).ready(function() {
+                                                console.log('A função de inicialização está sendo chamada.');
+                                                $('.carousel-{{ $category->id }}').slick({
+                                                    infinite: true,
+                                                    slidesToShow: 1,
+                                                    slidesToScroll: 1,
+                                                    autoplay: true,
+                                                    autoplaySpeed: 2000
+                                                });
+                                            });
+                                        </script>
                                     @endforeach
 
                                 </tbody>
@@ -79,4 +112,6 @@
 
         </div>
     </div>
+
+
 </x-admin-layout>
