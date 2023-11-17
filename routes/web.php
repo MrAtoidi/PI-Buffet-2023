@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\TableController;
+use App\Http\Controllers\Admin\BuffetTimingController;
 use App\Http\Controllers\Frontend\CategoryController as FrontendCategoryController;
 use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
 use App\Http\Controllers\Frontend\ReservationController as FrontendReservationController;
@@ -26,6 +27,23 @@ Route::get('/reservation/editar/{id}', [FrontendReservationController::class, 'e
 Route::get('/reservation/deleted', [FrontendReservationController::class, 'deleted'])->name('reservations.deleted');
 Route::delete('/reservation/deletar/{id}', [FrontendReservationController::class, 'destroy'])->name('reservations.destroy');
 Route::put('/reservation/{id}', [FrontendReservationController::class, 'update'])->name('reservations.update');
+
+Route::get('/admin/buffet-timings', [BuffetTimingController::class, 'index'])->name('admin.buffettimings.index');
+Route::get('/admin/buffet-timings/create', [BuffetTimingController::class, 'create'])->name('admin.buffettimings.create');
+Route::post('/admin/buffet-timings', [BuffetTimingController::class, 'store'])->name('admin.buffettimings.store');
+Route::get('/admin/buffet-timings/{id}/edit', [BuffetTimingController::class, 'edit'])->name('admin.buffettimings.edit');
+Route::put('/admin/buffet-timings/{id}', [BuffetTimingController::class, 'update'])->name('admin.buffettimings.update');
+Route::delete('/admin/buffet-timings/{buffet_timing}', [BuffetTimingController::class, 'destroy'])->name('admin.buffettimings.destroy');
+Route::get('/admin/buffet-timings/{id}/edit', [BuffetTimingController::class, 'edit'])->name('admin.buffettimings.edit');
+Route::put('/admin/buffet-timings/{id}', [BuffetTimingController::class, 'update'])->name('admin.buffettimings.update');
+
+Route::get('/buffet-timings', [BuffetTimingController::class, 'indexGuest'])->name('reservations.timings');
+
+Route::post('/check-availability', [FrontendReservationController::class, 'checkAvailability'])->name('checkAvailability');
+
+Route::resource('buffet_timings', BuffetTimingController::class)->only(['index', 'show']);
+
+
 
 Route::get('/reservation/check', [FrontendReservationController::class, 'getEmailForm'])->name('reservations.check.form');
 Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');

@@ -7,12 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Models\Table;
 use App\Models\Category;
+use App\Models\BuffetTiming;
 use App\Rules\DateBetween;
 use App\Rules\TimeBetween;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReservationStoreRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ReservationController extends Controller
 {
@@ -49,6 +51,45 @@ class ReservationController extends Controller
 
     return to_route('reservations.step.two');
 }
+
+public function checkAvailability(Request $request)
+{
+    $selectedDate = $request->input('selectedDate');
+
+    $selectedTime = $request->input('selectedTime');
+
+    // Combine selectedDate and selectedTime into a Carbon object
+    $selectedDateTime = Carbon::createFromFormat('Y-m-d H:i', $selectedDate . ' ' . $selectedTime);
+
+    // Format the date for database comparison (matching your database format)
+    $formattedDate = $selectedDateTime->format('Y-m-d H:i:s');
+
+    // Extract the day of the week and hour
+    $selectedDayOfWeek = $selectedDateTime->dayOfWeek;
+    $selectedHour = $selectedDateTime->format('H:i');
+
+    // Query BuffetTimings for the selected day of the week
+    $buffetTimings = BuffetTiming::where('day_of_week', $selectedDayOfWeek)->get();
+
+    // Check if the selected time falls within any BuffetTimings
+    $isAvailable = false;
+
+    foreach ($buffetTimings as $timing) {
+        $startTime = Carbon::parse($timing->start_time)->format('H:i');
+        $endTime = Carbon::parse($timing->end_time)->format('H:i');
+
+        if ($selectedHour >= $startTime && $selectedHour <= $endTime) {
+            $isAvailable = true;
+            break; // Exit the loop if the time is available
+        }
+    }
+
+    return response()->json(['available' => $isAvailable]);
+}
+
+
+
+
     public function stepTwo(Request $request)
 {
     $reservation = $request->session()->get('reservation');
@@ -66,6 +107,7 @@ class ReservationController extends Controller
     return view('reservations.step-two', compact('reservation', 'tables', 'min_date', 'max_date'));
 }
 
+
     public function storeStepTwo(Request $request)
     {
         $validated = $request->validate([
@@ -74,6 +116,12 @@ class ReservationController extends Controller
         ]);
         $reservation = $request->session()->get('reservation');
         $reservation->fill($validated);
+
+        $isAvailable = $this->checkAvailability($reservation->res_date);
+    if (!$isAvailable) {
+        return back()->withInput()->with('error', 'Selected time is not available in BuffetTimings!');
+    }
+
         $reservation->save();
         $request->session()->forget('reservation');
 

@@ -3,15 +3,12 @@
         <div class="grid lg:grid-cols-4 gap-y-6">
             @foreach ($categories as $category)
                 <div class="max-w-xs mx-4 mb-2 rounded-lg shadow-lg">
-                    {{-- <img class="w-full h-48" src="{{ url("/public/categories/$category->image") }}" alt="Image" /> --}}
 
                     <div class="overflow-hidden shadow-md sm:rounded-lg">
                         <div class=" shadow-md sm:rounded-lg teste1">
                             <div class="carousel-{{ $category->id }} teste2">
-                                <!-- Carrossel para esta categoria -->
                                 <div class="carousel-item">
                                     <div class="inline-block" style="width: 100px; height: 100px;">
-                                        <!-- Adicione a lógica para as imagens desta categoria aqui -->
                                         <div class="carousel-{{ $category->id }}">
                                             <img src="{{ url("/public/categories/$category->image1") }}" alt=""
                                                 class="w-12 h-12 rounded imgslider">
@@ -37,7 +34,6 @@
                     </div>
                 </div>
                 <script type="text/javascript">
-                    // Carrossel para esta categoria
                     $(document).ready(function() {
                         console.log('A função de inicialização está sendo chamada.');
                         $('.carousel-{{ $category->id }}').slick({

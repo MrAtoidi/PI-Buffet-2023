@@ -16,6 +16,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ url('public/script.js') }}" defer></script>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -85,7 +86,7 @@
                                 style="font-size: 15px;padding-left: 15px;">
                                 {{ __('Faça a sua reserva') }}
                             </x-dropdown-link>
-                            <x-dropdown-link href="{{ route('reservations.check.form') }}"
+                            <x-dropdown-link href="{{ route('login') }}"
                                 class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
                                 style="font-size: 15px;padding-left: 15px;">
                                 {{ __('Situação da reserva') }}

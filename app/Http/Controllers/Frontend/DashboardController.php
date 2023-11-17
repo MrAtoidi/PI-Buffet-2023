@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     // Obter as reservas do usuário logado
     $user = auth()->user();
-    $reservations = Reservation::where('user_id', $user->id)->get();
+    $reservations = Reservation::where('user_id', $user->id)->orderBy('res_date', 'asc')->get();
 
     return view('dashboard', compact('reservations'));
 }

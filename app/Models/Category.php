@@ -18,10 +18,8 @@ class Category extends Model
 
     public function getTotalPriceAttribute()
     {
-        // Obtém todos os menus associados a esta categoria
         $menus = $this->menus;
 
-        // Calcula a soma dos preços dos menus
         $totalPrice = $menus->sum('price');
 
         return $totalPrice;

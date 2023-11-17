@@ -64,6 +64,9 @@
                 <x-admin-nav-link :href="route('admin.reservations.index')" :active="request()->routeIs('admin.reservations.index')">
                     {{ __('Próximas festas') }}
                 </x-admin-nav-link>
+                <x-admin-nav-link :href="route('admin.buffettimings.index')" :active="request()->routeIs('admin.buffettimings.index')">
+                    {{ __('Horários de disponibilidade') }}
+                </x-admin-nav-link>
                 <div @click.away="open = false" class="relative" x-data="{ open: false }">
                     <button @click="open = !open"
                         class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark:bg-transparent dark:focus:text-white dark:hover:text-white dark:focus:bg-gray-600 dark:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
@@ -90,7 +93,7 @@
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();"
                                     class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                                    {{ __('Log Out') }}
+                                    {{ __('Sair') }}
                                 </x-dropdown-link>
                             </form>
                         </div>
