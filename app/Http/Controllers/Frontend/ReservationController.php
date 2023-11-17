@@ -185,6 +185,7 @@ public function update(Request $request, $id)
         'guest_number' => $validated['guest_number'],
         'cpf' => $validated['cpf'],
         'idade' => $validated['idade'],
+        'status' => '0'
     ]);
 
     return redirect()->route('dashboard')->with('success', 'Reserva atualizada com sucesso!');
@@ -202,6 +203,46 @@ public function deleted()
 {
 
         return view('reservations.deleted');
+    }
+
+        public function pending(Reservation $reservation)
+    {
+        $reservation->status = 0;
+        $msg = 'Reserva definida como pendente com sucesso!';
+
+        $reservation->save();
+
+        return to_route('dashboard')->with('warning', $msg);
+    }
+
+    public function confirm(Reservation $reservation)
+    {
+        $reservation->status = 1;
+        $msg = 'Reserva confirmada com sucesso!';
+
+        $reservation->save();
+
+        return to_route('dashboard')->with('warning', $msg);
+    }
+
+    public function cancel(Reservation $reservation)
+    {
+        $reservation->status = 2;
+        $msg = 'Reserva cancelada com sucesso!';
+
+        $reservation->save();
+
+        return to_route('dashboard')->with('warning', $msg);
+    }
+
+    public function finish(Reservation $reservation)
+    {
+        $reservation->status = 4;
+        $msg = 'Reserva finalizada com sucesso!';
+
+        $reservation->save();
+
+        return to_route('dashboard')->with('warning', $msg);
     }
 
 }

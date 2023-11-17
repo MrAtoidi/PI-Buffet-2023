@@ -22,16 +22,21 @@
             <!-- Email Address -->
             <div>
                 <x-label for="email" :value="__('Email')" />
-
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                     required autofocus />
             </div>
-
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex justify-between items-center text-center mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
+                    {{ __('Não tem uma conta?') }}
+                </a>
                 <x-button>
-                    {{ __('Link de redefinição de senha do e-mail') }}
+                    {{ __('Enviar link') }}
                 </x-button>
             </div>
+            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                {{ __('Fazer login') }}
+            </a>
+
         </form>
     </x-auth-card>
 </x-guest-layout>

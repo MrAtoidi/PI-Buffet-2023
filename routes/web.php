@@ -27,6 +27,11 @@ Route::get('/reservation/editar/{id}', [FrontendReservationController::class, 'e
 Route::get('/reservation/deleted', [FrontendReservationController::class, 'deleted'])->name('reservations.deleted');
 Route::delete('/reservation/deletar/{id}', [FrontendReservationController::class, 'destroy'])->name('reservations.destroy');
 Route::put('/reservation/{id}', [FrontendReservationController::class, 'update'])->name('reservations.update');
+Route::post('/reservations/{reservation}/pending', [FrontendReservationController::class, 'pending'])->name('reservations.pending');
+Route::post('/reservations/{reservation}/confirm', [FrontendReservationController::class, 'confirm'])->name('reservations.confirm');
+Route::post('/reservations/{reservation}/cancel', [FrontendReservationController::class, 'cancel'])->name('reservations.cancel');
+Route::post('/reservations/{reservation}/start', [FrontendReservationController::class, 'start'])->name('reservations.start');
+Route::post('/reservations/{reservation}/finish', [FrontendReservationController::class, 'finish'])->name('reservations.finish');
 
 Route::get('/admin/buffet-timings', [BuffetTimingController::class, 'index'])->name('admin.buffettimings.index');
 Route::get('/admin/buffet-timings/create', [BuffetTimingController::class, 'create'])->name('admin.buffettimings.create');
@@ -56,7 +61,11 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/menus', MenuController::class);
     Route::resource('/tables', TableController::class);
     Route::resource('/reservations', ReservationController::class);
+    Route::post('/reservations/{reservation}/pending', [ReservationController::class, 'pending'])->name('reservations.pending');
     Route::post('/reservations/{reservation}/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
+    Route::post('/reservations/{reservation}/cancel', [ReservationController::class, 'cancel'])->name('reservations.cancel');
+    Route::post('/reservations/{reservation}/start', [ReservationController::class, 'start'])->name('reservations.start');
+    Route::post('/reservations/{reservation}/finish', [ReservationController::class, 'finish'])->name('reservations.finish');
 });
 
 require __DIR__ . '/auth.php';

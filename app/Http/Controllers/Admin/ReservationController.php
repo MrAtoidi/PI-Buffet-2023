@@ -119,15 +119,50 @@ class ReservationController extends Controller
         return to_route('admin.reservations.index')->with('warning', 'Reserva deletada com sucesso!');
     }
 
+    public function pending(Reservation $reservation)
+    {
+        $reservation->status = 0;
+        $msg = 'Reserva definida como pendente com sucesso!';
+
+        $reservation->save();
+
+        return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
     public function confirm(Reservation $reservation)
     {
-        if($reservation->status == 1){
-            $reservation->status = 0;
-            $msg = 'Reserva cancelada com sucesso!';
-        } else {
-            $reservation->status = 1;
-            $msg = 'Reserva confirmada com sucesso!';
-        }
+        $reservation->status = 1;
+        $msg = 'Reserva confirmada com sucesso!';
+
+        $reservation->save();
+
+        return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
+    public function cancel(Reservation $reservation)
+    {
+        $reservation->status = 2;
+        $msg = 'Reserva cancelada com sucesso!';
+
+        $reservation->save();
+
+        return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
+    public function start(Reservation $reservation)
+    {
+        $reservation->status = 3;
+        $msg = 'Reserva iniciada com sucesso!';
+
+        $reservation->save();
+
+        return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
+    public function finish(Reservation $reservation)
+    {
+        $reservation->status = 4;
+        $msg = 'Reserva finalizada com sucesso!';
 
         $reservation->save();
 
