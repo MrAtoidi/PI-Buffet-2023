@@ -1,32 +1,3 @@
-{{-- <form action="{{ route('admin.buffettimings.store') }}" method="POST">
-    @csrf
-
-    <div class="form-group">
-        <label for="day_of_week">Dia da Semana:</label>
-        <select id="day_of_week" name="day_of_week" class="form-multiselect block w-full mt-1">
-            <option value="0">Domingo</option>
-            <option value="1">Segunda-feira</option>
-            <option value="2">Terça-feira</option>
-            <option value="3">Quarta-feira</option>
-            <option value="4">Quinta-feira</option>
-            <option value="5">Sexta-feira</option>
-            <option value="6">Sábado</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="start_time">Horário de Início:</label>
-        <input type="time" id="start_time" name="start_time" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-        <label for="end_time">Horário de Término:</label>
-        <input type="time" id="end_time" name="end_time" class="form-control" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Salvar</button>
-</form> --}}
-
 <x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -38,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex m-2 p-2">
                 <a href="{{ route('admin.buffettimings.index') }}"
-                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Reservation Index</a>
+                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Voltar</a>
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
@@ -89,7 +60,7 @@
 
                         <div class="mt-6 p-4">
                             <button type="submit"
-                                class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Store</button>
+                                class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Salvar</button>
                         </div>
                     </form>
                 </div>

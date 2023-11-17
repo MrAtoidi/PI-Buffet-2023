@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end m-2 p-2">
                 <a href="{{ route('admin.menus.create') }}"
-                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New Menu</a>
+                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Nova Opção de Comida</a>
             </div>
             <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -35,7 +35,7 @@
                                             Guests
                                         </th>
                                         <th scope="col" class="relative py-3 px-6">
-                                            <span class="sr-only">Edit</span>
+                                            <span class="sr-only">Editar</span>
                                         </th>
                                     </tr>
                                 </thead>
@@ -63,15 +63,15 @@
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <div class="flex space-x-2">
                                                     <a href="{{ route('admin.menus.edit', $menu->id) }}"
-                                                        class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Edit</a>
+                                                        class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Editar</a>
                                                     <form
                                                         class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                                         method="POST"
                                                         action="{{ route('admin.menus.destroy', $menu->id) }}"
-                                                        onsubmit="return confirm('Are you sure?');">
+                                                        onsubmit="return confirm('Você tem certeza?');">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit">Delete</button>
+                                                        <button type="submit">Deletar</button>
                                                     </form>
                                                 </div>
                                             </td>

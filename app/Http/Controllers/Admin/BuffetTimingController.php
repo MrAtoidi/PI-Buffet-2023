@@ -169,8 +169,8 @@ public function store(Request $request)
 
         return redirect()->route('admin.buffettimings.index')->with('success', 'Buffet timing deleted successfully!');
     } catch (\Exception $e) {
-        Log::error('Error deleting BuffetTiming: ' . $e->getMessage());
-        return back()->with('error', 'Error deleting BuffetTiming. Please check the logs for more details.');
+        Log::error('Erro ao deletar o Buffet: ' . $e->getMessage());
+        return back()->with('error', 'Erro ao deletar o BuffetTiming. Verifique o console.');
     }
 }
 }

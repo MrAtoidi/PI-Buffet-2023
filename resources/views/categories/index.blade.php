@@ -35,7 +35,6 @@
                 </div>
                 <script type="text/javascript">
                     $(document).ready(function() {
-                        console.log('A função de inicialização está sendo chamada.');
                         $('.carousel-{{ $category->id }}').slick({
                             infinite: true,
                             slidesToShow: 1,

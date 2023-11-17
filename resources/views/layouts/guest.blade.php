@@ -37,7 +37,7 @@
             <div class="flex items-center justify-between">
                 <a class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 md:text-2xl hover:text-green-400"
                     href="#">
-                    PI 2023
+                    Mundo Mágico das Festas
                 </a>
                 <!-- Mobile menu button -->
                 <div @click="isOpen = !isOpen" class="flex md:hidden">
@@ -59,9 +59,9 @@
                 <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
                     href="/">Home</a>
                 <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
-                    href="{{ route('categories.index') }}">Categorias</a>
+                    href="{{ route('categories.index') }}">Pacotes de Comida</a>
                 <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
-                    href="{{ route('menus.index') }}">Nosso menu</a>
+                    href="{{ route('menus.index') }}">Opções de Comida</a>
                 <div @click.away="open = false" class="relative" x-data="{ open: false }">
                     <button @click="open = !open"
                         class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400">
@@ -106,9 +106,9 @@
             <div class="flex flex-wrap justify-center">
                 <ul class="flex items-center space-x-4 text-white">
                     <li>Home</li>
-                    <li>About</li>
-                    <li>Contact</li>
-                    <li>Terms</li>
+                    <li>Sobre nós</li>
+                    <li>Contato</li>
+                    <li>Termos</li>
                 </ul>
             </div>
             <div class="flex justify-center mt-4 lg:mt-0">

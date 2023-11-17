@@ -72,7 +72,7 @@ public function store(CategoryStoreRequest $request)
         'image3' => "$filename3",
     ]);
 
-    return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
+    return redirect()->route('admin.categories.index')->with('success', 'Pacote de comida criado com sucesso.');
 }
 
 
@@ -156,7 +156,7 @@ public function update(Request $request, Category $category)
 
         $category->save();
 
-        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Pacote de comida atualizado com sucesso.');
 }
 
     /**
@@ -173,6 +173,6 @@ public function update(Request $request, Category $category)
         $category->menus()->detach();
         $category->delete();
 
-        return to_route('admin.categories.index')->with('danger', 'Category deleted successfully.');
+        return to_route('admin.categories.index')->with('danger', 'Pacote de comida deletado com sucesso.');
     }
 }

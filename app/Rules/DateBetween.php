@@ -39,6 +39,6 @@ class DateBetween implements Rule
      */
     public function message()
     {
-        return 'Please choose the date between a week from  now.';
+        return 'Por favor, escolha uma data com no mínimo uma semana de antecedência.';
     }
 }

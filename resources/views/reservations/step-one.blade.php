@@ -9,18 +9,19 @@
                     </div>
                     <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                         <div class="w-full">
-                            <h3 class="mb-4 text-xl font-bold text-blue-600">Make Reservation</h3>
+                            <h3 class="mb-4 text-xl font-bold text-blue-600">Solicitar reserva</h3>
 
                             <div class="w-full bg-gray-200 rounded-full">
                                 <div
                                     class="w-40 p-1 text-xs font-medium leading-none text-center text-blue-100 bg-blue-600 rounded-full">
-                                    Step1</div>
+                                    Primeiro passo</div>
                             </div>
 
                             <form method="POST" action="{{ route('reservations.store.step.one') }}">
                                 @csrf
                                 <div class="sm:col-span-6">
-                                    <label for="first_name" class="block text-sm font-medium text-gray-700"> First Name
+                                    <label for="first_name" class="block text-sm font-medium text-gray-700"> Primeiro
+                                        nome
                                     </label>
                                     <div class="mt-1">
                                         <input type="text" id="first_name" name="first_name"
@@ -32,7 +33,7 @@
                                     @enderror
                                 </div>
                                 <div class="sm:col-span-6">
-                                    <label for="last_name" class="block text-sm font-medium text-gray-700"> Last Name
+                                    <label for="last_name" class="block text-sm font-medium text-gray-700"> Último nome
                                     </label>
                                     <div class="mt-1">
                                         <input type="text" id="last_name" name="last_name"
@@ -44,7 +45,7 @@
                                     @enderror
                                 </div>
                                 <div class="sm:col-span-6">
-                                    <label for="email" class="block text-sm font-medium text-gray-700"> Email
+                                    <label for="email" class="block text-sm font-medium text-gray-700"> E-mail
                                     </label>
                                     <div class="mt-1">
                                         <input type="email" id="email" name="email"
@@ -56,8 +57,7 @@
                                     @enderror
                                 </div>
                                 <div class="sm:col-span-6">
-                                    <label for="tel_number" class="block text-sm font-medium text-gray-700"> Phone
-                                        number
+                                    <label for="tel_number" class="block text-sm font-medium text-gray-700"> Telefone
                                     </label>
                                     <div class="mt-1">
                                         <input type="text" id="tel_number" name="tel_number"
@@ -92,8 +92,8 @@
                                     @enderror
                                 </div>
                                 <div class="sm:col-span-6">
-                                    <label for="guest_number" class="block text-sm font-medium text-gray-700"> Guest
-                                        Number
+                                    <label for="guest_number" class="block text-sm font-medium text-gray-700"> Qtd de
+                                        Convidados
                                     </label>
                                     <div class="mt-1">
                                         <input type="number" id="guest_number" name="guest_number"
@@ -107,7 +107,7 @@
 
                                 <div class="mt-6 p-4 flex justify-end">
                                     <button type="submit"
-                                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Next</button>
+                                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Próximo</button>
                                 </div>
                             </form>
                         </div>

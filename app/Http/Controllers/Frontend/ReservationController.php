@@ -55,22 +55,24 @@ class ReservationController extends Controller
 public function checkAvailability(Request $request)
 {
     $selectedDate = $request->input('selectedDate');
-
+    //Log::info(['Selected Date' => $selectedDate]);
     $selectedTime = $request->input('selectedTime');
+    //Log::info(['Selected Time' => $selectedTime]);
 
     // Combine selectedDate and selectedTime into a Carbon object
     $selectedDateTime = Carbon::createFromFormat('Y-m-d H:i', $selectedDate . ' ' . $selectedTime);
-
+    //Log::info(['Selected DateTime' => $selectedDateTime]);
     // Format the date for database comparison (matching your database format)
     $formattedDate = $selectedDateTime->format('Y-m-d H:i:s');
-
+    //Log::info(['Formatted Date' => $formattedDate]);
     // Extract the day of the week and hour
     $selectedDayOfWeek = $selectedDateTime->dayOfWeek;
     $selectedHour = $selectedDateTime->format('H:i');
+    //Log::info(['Selected Hour' => $selectedHour]);
 
     // Query BuffetTimings for the selected day of the week
     $buffetTimings = BuffetTiming::where('day_of_week', $selectedDayOfWeek)->get();
-
+    //Log::info(['Buffet Timings' => $buffetTimings]);
     // Check if the selected time falls within any BuffetTimings
     $isAvailable = false;
 
@@ -80,6 +82,7 @@ public function checkAvailability(Request $request)
 
         if ($selectedHour >= $startTime && $selectedHour <= $endTime) {
             $isAvailable = true;
+            //Log::info(['Available' => $isAvailable]);
             break; // Exit the loop if the time is available
         }
     }
@@ -116,12 +119,6 @@ public function checkAvailability(Request $request)
         ]);
         $reservation = $request->session()->get('reservation');
         $reservation->fill($validated);
-
-        $isAvailable = $this->checkAvailability($reservation->res_date);
-    if (!$isAvailable) {
-        return back()->withInput()->with('error', 'Selected time is not available in BuffetTimings!');
-    }
-
         $reservation->save();
         $request->session()->forget('reservation');
 

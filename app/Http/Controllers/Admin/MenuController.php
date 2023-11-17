@@ -65,7 +65,7 @@ class MenuController extends Controller
         }
 
 
-        return to_route('admin.menus.index')->with('success', 'Menu created successfully.');
+        return to_route('admin.menus.index')->with('success', 'Opção de comida criado com sucesso.');
     }
 
     private function updateCategoryPrices(array $categoryIds)
@@ -128,7 +128,7 @@ class MenuController extends Controller
         $menu->categories()->sync($request->categories);
     }
 
-    return redirect()->route('admin.menus.index')->with('success', 'Menu updated successfully.');
+    return redirect()->route('admin.menus.index')->with('success', 'Opção de comida atualizado com sucesso.');
 }
 
     /**
@@ -142,6 +142,6 @@ class MenuController extends Controller
         Storage::delete($menu->image);
         $menu->categories()->detach();
         $menu->delete();
-        return to_route('admin.menus.index')->with('danger', 'Menu deleted successfully.');
+        return to_route('admin.menus.index')->with('danger', 'Opção de comida deletado com sucesso.');
     }
 }

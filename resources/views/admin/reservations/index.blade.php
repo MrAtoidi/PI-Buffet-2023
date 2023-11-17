@@ -30,7 +30,7 @@
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                            Email
+                                            E-mail
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
@@ -42,18 +42,18 @@
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                            Data
+                                            Data da reserva
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                            Pacote
+                                            Pacote de comida
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Qtd de convidados
                                         </th>
                                         <th scope="col" class="relative py-3 px-6">
-                                            <span class="sr-only">Edit</span>
+                                            <span class="sr-only">Editar</span>
                                         </th>
                                     </tr>
                                 </thead>
@@ -102,7 +102,7 @@
                                                         class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                                         method="POST"
                                                         action="{{ route('admin.reservations.destroy', $reservation->id) }}"
-                                                        onsubmit="return confirm('Are you sure?');">
+                                                        onsubmit="return confirm('Você tem certeza?');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit">Deletar</button>
@@ -111,7 +111,7 @@
                                                         class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white"
                                                         method="POST"
                                                         action="{{ route('admin.reservations.confirm', $reservation->id) }}"
-                                                        onsubmit="return confirm('Are you sure?');">
+                                                        onsubmit="return confirm('Você tem certeza?');">
                                                         @csrf
                                                         <button
                                                             type="submit">{{ $reservation->status == '1' ? 'Cancelar' : 'Confirmar' }}</button>

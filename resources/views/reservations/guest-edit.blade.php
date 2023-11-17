@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Reservation') }}
+            {{ __('Editar reserva') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex m-2 p-2">
                 <a href="{{ route('reservations.check.form') }}"
-                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Back</a>
+                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Voltar</a>
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
@@ -17,7 +17,8 @@
                         @csrf
                         @method('PUT')
                         <div class="sm:col-span-6">
-                            <label for="first_name" class="block text-sm font-medium text-gray-700"> First Name </label>
+                            <label for="first_name" class="block text-sm font-medium text-gray-700"> Primeiro nome
+                            </label>
                             <div class="mt-1">
                                 <input type="text" id="first_name" name="first_name"
                                     value="{{ old('first_name', $reservation->first_name) }}"
@@ -29,7 +30,7 @@
                         </div>
 
                         <div class="sm:col-span-6">
-                            <label for="last_name" class="block text-sm font-medium text-gray-700"> Last Name </label>
+                            <label for="last_name" class="block text-sm font-medium text-gray-700"> Último nome </label>
                             <div class="mt-1">
                                 <input type="text" id="last_name" name="last_name"
                                     value="{{ old('last_name', $reservation->last_name) }}"
@@ -41,7 +42,7 @@
                         </div>
 
                         <div class="sm:col-span-6">
-                            <label for="email" class="block text-sm font-medium text-gray-700"> Email </label>
+                            <label for="email" class="block text-sm font-medium text-gray-700"> E-mail </label>
                             <div class="mt-1">
                                 <input type="email" id="email" name="email"
                                     value="{{ old('email', $reservation->email) }}"
@@ -53,7 +54,7 @@
                         </div>
 
                         <div class="sm:col-span-6">
-                            <label for="tel_number" class="block text-sm font-medium text-gray-700"> Phone number
+                            <label for="tel_number" class="block text-sm font-medium text-gray-700"> Telefone
                             </label>
                             <div class="mt-1">
                                 <input type="text" id="tel_number" name="tel_number"
@@ -66,7 +67,7 @@
                         </div>
 
                         <div class="sm:col-span-6">
-                            <label for="res_date" class="block text-sm font-medium text-gray-700"> Reservation Date
+                            <label for="res_date" class="block text-sm font-medium text-gray-700"> Data da reserva
                             </label>
                             <div class="mt-1">
                                 <input type="datetime-local" id="res_date" name="res_date"
@@ -79,7 +80,8 @@
                         </div>
 
                         <div class="sm:col-span-6 pt-5">
-                            <label for="status" class="block text-sm font-medium text-gray-700">Pacotes</label>
+                            <label for="status" class="block text-sm font-medium text-gray-700">Pacotes de
+                                Comida</label>
                             <div class="mt-1">
                                 <select id="table_id" name="table_id" class="form-multiselect block w-full mt-1">
                                     @foreach ($tables as $table)
@@ -96,7 +98,7 @@
                         </div>
 
                         <div class="sm:col-span-6">
-                            <label for="guest_number" class="block text-sm font-medium text-gray-700"> Guest Number
+                            <label for="guest_number" class="block text-sm font-medium text-gray-700"> Qtd de Convidados
                             </label>
                             <div class="mt-1">
                                 <input type="number" id="guest_number" name="guest_number"
@@ -129,7 +131,7 @@
                             </div>
                             <div class="mt-6 p-4">
                                 <button type="submit"
-                                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Update</button>
+                                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Atualizar</button>
                             </div>
                             @error('idade')
                                 <div class="text-sm text-red-400">{{ $message }}</div>
