@@ -15,11 +15,16 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Painel') }}
                     </x-nav-link>
-                    @if (Auth::user()->is_admin)
+                    {{-- @if (Auth::user()->is_admin == 1)
                         <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
-                            {{ __('Admin') }}
+                            {{ __('Setor Administrativo') }}
                         </x-nav-link>
                     @endif
+                    @if (Auth::user()->is_admin <= 2 && Auth::user()->is_admin != 0)
+                        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                            {{ __('Setor Operacional') }}
+                        </x-nav-link>
+                    @endif --}}
                 </div>
             </div>
 
