@@ -40,4 +40,9 @@ class Reservation extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function guests()
+    {
+        return $this->hasMany(Guest::class);
+    }
 }

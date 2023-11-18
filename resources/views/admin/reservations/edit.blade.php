@@ -85,7 +85,7 @@
                             @enderror
                         </div>
                         <div class="sm:col-span-6">
-                            <label for="res_date" class="block text-sm font-medium text-gray-700"> RData da reserva
+                            <label for="res_date" class="block text-sm font-medium text-gray-700"> Data da reserva
                             </label>
                             <div class="mt-1">
                                 <input type="datetime-local" id="res_date" name="res_date"

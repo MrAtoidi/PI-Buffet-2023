@@ -87,6 +87,12 @@
                                     class="shadow-sm focus:ring-indigo-500 appearance-none bg-white border py-2 px-3 text-base leading-normal transition duration-150 ease-in-out focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
                                  {{ $category->description }}
                                 </textarea>
+                                <script type="text/javascript" src='https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js'></script>
+                                <script>
+                                    tinymce.init({
+                                        selector: "#description"
+                                    });
+                                </script>
                             </div>
                             @error('description')
                                 <div class="text-sm text-red-400">{{ $message }}</div>

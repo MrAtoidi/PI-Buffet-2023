@@ -20,7 +20,12 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::orderBy('res_date', 'asc')->get();
+
+        $reservations = Reservation::withCount(['guests as confirmed_guests_count' => function ($query) {
+                    $query;
+                }])->orderBy('res_date', 'asc')->get();
+
+
         return view('admin.reservations.index', compact('reservations'));
     }
 
@@ -119,19 +124,68 @@ class ReservationController extends Controller
         return to_route('admin.reservations.index')->with('warning', 'Reserva deletada com sucesso!');
     }
 
-    public function confirm(Reservation $reservation)
+    public function pending(Reservation $reservation)
     {
-        if($reservation->status == 1){
-            $reservation->status = 0;
-            $msg = 'Reserva cancelada com sucesso!';
-        } else {
-            $reservation->status = 1;
-            $msg = 'Reserva confirmada com sucesso!';
-        }
+        $reservation->status = 0;
+        $msg = 'Reserva definida como pendente com sucesso!';
 
         $reservation->save();
 
         return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
+    public function confirm(Reservation $reservation)
+    {
+        $reservation->status = 1;
+        $msg = 'Reserva confirmada com sucesso!';
+
+        $reservation->save();
+
+        return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
+    public function cancel(Reservation $reservation)
+    {
+        $reservation->status = 2;
+        $msg = 'Reserva cancelada com sucesso!';
+
+        $reservation->save();
+
+        return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
+    public function start(Reservation $reservation)
+    {
+        $reservation->status = 3;
+        $msg = 'Reserva iniciada com sucesso!';
+
+        $reservation->save();
+
+        return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
+    public function finish(Reservation $reservation)
+    {
+        $reservation->status = 4;
+        $msg = 'Reserva finalizada com sucesso!';
+
+        $reservation->save();
+
+        return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
+    public function confirmedGuests(Reservation $reservation)
+    {
+        $confirmedGuests = $reservation->guests()->get();
+
+        return view('guests.confirmed', compact('confirmedGuests', 'reservation'));
+    }
+
+    public function adminConfirmedGuests(Reservation $reservation)
+    {
+        $confirmedGuests = $reservation->guests()->get();
+
+        return view('admin.guests.confirmed', compact('confirmedGuests', 'reservation'));
     }
 
 

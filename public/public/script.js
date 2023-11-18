@@ -21,19 +21,20 @@ document.getElementById("res_date").addEventListener("change", function () {
     })
         .then((response) => response.json())
         .then((data) => {
-            const availabilityMsg = document.getElementById("availability-msg");
+            const availabilityMsg = document.querySelector(".availability-msg");
+            const reservationBtn = document.getElementById("reservation-btn");
 
             if (data.available) {
-                availabilityMsg.textContent = "";
-                document
-                    .getElementById("reservation-btn")
-                    .removeAttribute("disabled");
+                availabilityMsg.textContent = "Este horário está disponível!";
+                availabilityMsg.classList.remove("text-red-700");
+                availabilityMsg.classList.add("text-green-500");
+                reservationBtn.removeAttribute("disabled");
             } else {
                 availabilityMsg.textContent =
                     "Este horário não está disponível.";
-                document
-                    .getElementById("reservation-btn")
-                    .setAttribute("disabled", true);
+                availabilityMsg.classList.remove("text-green-500");
+                availabilityMsg.classList.add("text-red-700");
+                reservationBtn.setAttribute("disabled", true);
             }
         })
         .catch((error) => {

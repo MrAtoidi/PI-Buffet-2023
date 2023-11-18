@@ -9,12 +9,12 @@
                     </div>
                     <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                         <div class="w-full">
-                            <h3 class="mb-4 text-xl font-bold text-blue-600">Make Reservation</h3>
+                            <h3 class="mb-4 text-xl font-bold text-blue-600">Solicitar reserva</h3>
 
                             <div class="w-full bg-gray-200 rounded-full">
                                 <div
                                     class="w-100 p-1 text-xs font-medium leading-none text-center text-blue-100 bg-blue-600 rounded-full">
-                                    Step 2</div>
+                                    Segundo passo</div>
                             </div>
 
                             <form method="POST" action="{{ route('reservations.store.step.two') }}">
@@ -23,15 +23,15 @@
 
 
                                 <div class="sm:col-span-6 pt-5">
-                                    <label for="status"
-                                        class="block text-sm font-medium text-gray-700">Pacotes</label>
+                                    <label for="status" class="block text-sm font-medium text-gray-700">Pacotes de
+                                        comida</label>
                                     <div class="mt-1">
                                         <select id="table_id" name="table_id"
                                             class="form-multiselect block w-full mt-1">
                                             @foreach ($tables as $table)
                                                 <option value="{{ $table->id }}" @selected($table->id == $reservation->table_id)>
                                                     {{ $table->name }}
-                                                    ({{ $table->guest_number }} Guests)
+                                                    (Comporta {{ $table->guest_number }} convidados)
                                                 </option>
                                             @endforeach
                                         </select>
@@ -43,8 +43,8 @@
 
 
                                 <div class="sm:col-span-6">
-                                    <label for="res_date" class="block text-sm font-medium text-gray-700">Reservation
-                                        Date</label>
+                                    <label for="res_date" class="block text-sm font-medium text-gray-700">Data da
+                                        reserva</label>
                                     <div class="mt-1">
                                         <input type="datetime-local" id="res_date" name="res_date"
                                             value="{{ $reservation && $reservation->res_date ? $reservation->res_date->format('Y-m-d\TH:i:s') : '' }}"
@@ -55,7 +55,7 @@
                                             horário de disponibilidade.
                                             Clique
                                             aqui.</a></span>
-                                    <div id="availability-msg" class="text-sm text-red-400"></div>
+                                    <div class="availability-msg text-sm"></div>
                                     <!-- Display availability message -->
                                     @error('res_date')
                                         <div class="text-sm text-red-400">{{ $message }}</div>
@@ -65,11 +65,11 @@
 
                                 <div class="mt-6 p-4 flex justify-between">
                                     <a href="{{ route('reservations.step.one') }}"
-                                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Previous</a>
+                                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Anterior</a>
                                     <button type="submit"
                                         class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white"
-                                        id="reservation-btn" disabled="true">Make
-                                        Reservation</button>
+                                        id="reservation-btn" disabled="true">Solicitar
+                                        reserva</button>
                                 </div>
                             </form>
                         </div>
