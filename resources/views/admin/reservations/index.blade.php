@@ -52,7 +52,7 @@
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                            Qtd de convidados
+                                            Confirmados/Convidados
                                         </th>
                                         @if (Auth::user()->is_admin == 1)
                                             <th scope="col" class="relative py-3 px-6">
@@ -112,7 +112,9 @@
                                             </td>
                                             <td
                                                 class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                {{ $reservation->guest_number }}
+                                                <a href="{{ route('admin.reservations.confirmed-guests', ['reservation' => $reservation->id]) }}"
+                                                    class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white">{{ $reservation->confirmed_guests_count }}/{{ $reservation->guest_number }}</a>
+
                                             </td>
                                             @if (Auth::user()->is_admin == 1)
                                                 <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">

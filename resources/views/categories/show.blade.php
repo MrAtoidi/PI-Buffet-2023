@@ -8,7 +8,7 @@
                         <h4 class="mb-3 text-xl font-semibold tracking-tight text-green-600 uppercase">
                             {{ $menu->name }}</h4>
                         <p class="leading-normal text-gray-700">
-                            {{ $menu->description }}
+                            {!! $menu->description !!}
                         </p>
                     </div>
                     <div class="flex items-center justify-between p-4">

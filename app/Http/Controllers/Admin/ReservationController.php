@@ -20,7 +20,12 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::orderBy('res_date', 'asc')->get();
+
+        $reservations = Reservation::withCount(['guests as confirmed_guests_count' => function ($query) {
+                    $query;
+                }])->orderBy('res_date', 'asc')->get();
+
+
         return view('admin.reservations.index', compact('reservations'));
     }
 
@@ -167,6 +172,13 @@ class ReservationController extends Controller
         $reservation->save();
 
         return to_route('admin.reservations.index')->with('warning', $msg);
+    }
+
+    public function confirmedGuests(Reservation $reservation)
+    {
+        $confirmedGuests = $reservation->guests()->get();
+
+        return view('admin.guests.confirmed', compact('confirmedGuests', 'reservation'));
     }
 
 

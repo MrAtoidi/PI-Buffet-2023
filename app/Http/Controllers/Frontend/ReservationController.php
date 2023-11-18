@@ -188,7 +188,7 @@ public function update(Request $request, $id)
         'status' => '0'
     ]);
 
-    return redirect()->route('dashboard')->with('success', 'Reserva atualizada com sucesso!');
+    return redirect()->route('profile.reservations')->with('success', 'Reserva atualizada com sucesso!');
 }
 
 public function destroy($id)
@@ -243,6 +243,13 @@ public function deleted()
         $reservation->save();
 
         return to_route('dashboard')->with('warning', $msg);
+    }
+
+    public function confirmedGuests(Reservation $reservation)
+    {
+        $confirmedGuests = $reservation->guests()->get();
+
+        return view('guests.confirmed', compact('confirmedGuests', 'reservation'));
     }
 
 }

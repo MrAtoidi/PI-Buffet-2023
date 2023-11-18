@@ -10,10 +10,12 @@ use App\Http\Controllers\Frontend\CategoryController as FrontendCategoryControll
 use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
 use App\Http\Controllers\Frontend\ReservationController as FrontendReservationController;
 use App\Http\Controllers\Frontend\DashboardController as FrontendDashboardController;
+use App\Http\Controllers\Frontend\GuestController as FrontendGuestController;
+use App\Http\Controllers\Frontend\ProfileController as FrontendProfileController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-
+//Páginas principais
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/{category}', [FrontendCategoryController::class, 'show'])->name('categories.show');
@@ -33,6 +35,10 @@ Route::post('/reservations/{reservation}/cancel', [FrontendReservationController
 Route::post('/reservations/{reservation}/start', [FrontendReservationController::class, 'start'])->name('reservations.start');
 Route::post('/reservations/{reservation}/finish', [FrontendReservationController::class, 'finish'])->name('reservations.finish');
 
+Route::resource('buffet_timings', BuffetTimingController::class)->only(['index', 'show']);
+Route::get('/buffet-timings', [BuffetTimingController::class, 'indexGuest'])->name('reservations.timings');
+Route::post('/check-availability', [FrontendReservationController::class, 'checkAvailability'])->name('checkAvailability');
+
 Route::get('/admin/buffet-timings', [BuffetTimingController::class, 'index'])->name('admin.buffettimings.index');
 Route::get('/admin/buffet-timings/create', [BuffetTimingController::class, 'create'])->name('admin.buffettimings.create');
 Route::post('/admin/buffet-timings', [BuffetTimingController::class, 'store'])->name('admin.buffettimings.store');
@@ -42,18 +48,25 @@ Route::delete('/admin/buffet-timings/{buffet_timing}', [BuffetTimingController::
 Route::get('/admin/buffet-timings/{id}/edit', [BuffetTimingController::class, 'edit'])->name('admin.buffettimings.edit');
 Route::put('/admin/buffet-timings/{id}', [BuffetTimingController::class, 'update'])->name('admin.buffettimings.update');
 
-Route::get('/buffet-timings', [BuffetTimingController::class, 'indexGuest'])->name('reservations.timings');
-
-Route::post('/check-availability', [FrontendReservationController::class, 'checkAvailability'])->name('checkAvailability');
-
-Route::resource('buffet_timings', BuffetTimingController::class)->only(['index', 'show']);
-
-
-
 Route::get('/reservation/check', [FrontendReservationController::class, 'getEmailForm'])->name('reservations.check.form');
 Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
 
 Route::get('/dashboard', [FrontendDashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/dashboard/my-reservations', [FrontendProfileController::class, 'index'])->name('profile.reservations');
+Route::get('/dashboard/guest-at', [FrontendProfileController::class, 'guestAt'])->name('profile.guest-at');
+
+Route::get('/reservations/{reservation}/confirmed-guests', [FrontendReservationController::class, 'confirmedGuests'])
+    ->name('reservations.confirmed-guests');
+Route::delete('/cancel-guest/{id}', [FrontendGuestController::class, 'cancelGuest'])->name('cancel-guest');
+
+Route::middleware('auth')->group(function () {
+Route::get('/confirmation/{reservation_id}', [FrontendGuestController::class, 'form'])->name('confirmation.form');
+Route::post('/confirmation/{reservation_id}/save', [FrontendGuestController::class, 'save'])->name('confirmation.save');
+Route::delete('/guests/{guest}', [FrontendGuestController::class, 'removeGuest'])->name('guests.remove');
+Route::post('/confirm-presence/{id}', [FrontendGuestController::class, 'confirmPresence'])->name('confirm-presence');
+
+});
 
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
@@ -66,6 +79,8 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::post('/reservations/{reservation}/cancel', [ReservationController::class, 'cancel'])->name('reservations.cancel');
     Route::post('/reservations/{reservation}/start', [ReservationController::class, 'start'])->name('reservations.start');
     Route::post('/reservations/{reservation}/finish', [ReservationController::class, 'finish'])->name('reservations.finish');
+    Route::get('/reservations/{reservation}/confirmed-guests', [ReservationController::class, 'confirmedGuests'])
+    ->name('reservations.confirmed-guests');
 });
 
 require __DIR__ . '/auth.php';
