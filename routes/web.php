@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\ReservationController as FrontendReservationCo
 use App\Http\Controllers\Frontend\DashboardController as FrontendDashboardController;
 use App\Http\Controllers\Frontend\GuestController as FrontendGuestController;
 use App\Http\Controllers\Frontend\ProfileController as FrontendProfileController;
+use App\Http\Controllers\Frontend\ReviewController as FrontendReviewController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,17 @@ Route::get('/reservations/{reservation}/confirmed-guests', [FrontendReservationC
     ->name('reservations.confirmed-guests');
 Route::delete('/cancel-guest/{id}', [FrontendGuestController::class, 'cancelGuest'])->name('cancel-guest');
 
+Route::get('/reservations/{id}/review', [FrontendReviewController::class, 'create'])->name('reservations.review');
+
+// Route::get('/reviews/create', [FrontendReviewController::class, 'review'])->name('reviews.create');
+Route::post('/reviews/store', [FrontendReviewController::class, 'store'])->name('reviews.store');
+Route::get('/reviews/{id}', [FrontendReviewController::class, 'showReview'])->name('reviews.show');
+
+Route::get('/reservations/{id}/review', [FrontendReviewController::class, 'review'])->name('reviews.create');
+Route::post('/reservations/{id}/review', [FrontendReviewController::class, 'saveReview'])->name('reservations.storeReview');
+
+
+
 Route::middleware('auth')->group(function () {
 Route::get('/confirmation/{reservation_id}', [FrontendGuestController::class, 'form'])->name('confirmation.form');
 Route::get('/admin/confirmation/{reservation_id}', [FrontendGuestController::class, 'adminForm'])->name('admin.confirmation.form');
@@ -71,8 +83,10 @@ Route::get('/reservations/{reservation}/confirmed-guests', [ReservationControlle
     ->name('reservations.confirmed-guests');
 Route::get('/admin/reservations/{reservation}/confirmed-guests', [ReservationController::class, 'adminConfirmedGuests'])
     ->name('admin.reservations.confirmed-guests');
-
 });
+
+
+
 
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');

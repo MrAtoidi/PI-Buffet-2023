@@ -208,14 +208,8 @@
                                                     @endif
                                                     <!-- Reserva finalizada -->
                                                     @if ($reservation->status == 4)
-                                                        <form
-                                                            class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white"
-                                                            method="POST"
-                                                            action="{{ route('admin.reservations.finish', $reservation->id) }}"
-                                                            onsubmit="return confirm('Você tem certeza?');">
-                                                            @csrf
-                                                            <button type="submit">Avaliação</button>
-                                                        </form>
+                                                        <a href="{{ route('reviews.show', $reservation->id) }}"
+                                                            class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white">Avaliar</a>
                                                     @endif
                                                 </td>
                                             @endif

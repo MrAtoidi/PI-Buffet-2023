@@ -30,7 +30,7 @@
                                             class="form-multiselect block w-full mt-1">
                                             @foreach ($tables as $table)
                                                 <option value="{{ $table->id }}" @selected($table->id == $reservation->table_id)>
-                                                    {{ $table->name }}
+                                                    R${{ $table->price }} {{ $table->name }}
                                                     (Comporta {{ $table->guest_number }} convidados)
                                                 </option>
                                             @endforeach
