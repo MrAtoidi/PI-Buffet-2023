@@ -63,15 +63,12 @@
                     <x-admin-nav-link :href="route('admin.menus.index')" :active="request()->routeIs('admin.menus.index')">
                         {{ __('Opções de comida') }}
                     </x-admin-nav-link>
-                    <x-admin-nav-link :href="route('admin.tables.index')" :active="request()->routeIs('admin.tables.index')">
-                        {{ __('Tables') }}
-                    </x-admin-nav-link>
                 @endif
-                <x-admin-nav-link :href="route('admin.reservations.index')" :active="request()->routeIs('admin.reservations.index')">
-                    {{ __('Próximas festas') }}
-                </x-admin-nav-link>
                 <x-admin-nav-link :href="route('admin.buffettimings.index')" :active="request()->routeIs('admin.buffettimings.index')">
                     {{ __('Horários de disponibilidade') }}
+                </x-admin-nav-link>
+                <x-admin-nav-link :href="route('admin.reservations.index')" :active="request()->routeIs('admin.reservations.index')">
+                    {{ __('Próximas festas') }}
                 </x-admin-nav-link>
                 <div @click.away="open = false" class="relative" x-data="{ open: false }">
                     <button @click="open = !open"
