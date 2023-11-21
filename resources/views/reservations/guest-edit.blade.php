@@ -87,12 +87,12 @@
                     </div>
 
                     <div class="sm:col-span-6 pt-5">
-                        <label for="status" class="block text-sm font-medium text-gray-700">Pacotes de
-                            Comida</label>
+                        <label for="status" class="block text-sm font-medium text-gray-700">Pacotes de Comida</label>
                         <div class="mt-1">
                             <select id="table_id" name="table_id" class="form-multiselect block w-full mt-1">
                                 @foreach ($tables as $table)
-                                    <option value="{{ $table->id }}" @selected($table->id == $reservation->table_id)>
+                                    <option value="{{ $table->id }}" data-price="{{ $table->price }}"
+                                        {{ $table->id == $reservation->table_id ? 'selected' : '' }}>
                                         {{ $table->name }}
                                         ({{ $table->guest_number }} Guests)
                                     </option>
@@ -103,6 +103,33 @@
                             <div class="text-sm text-red-400">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const tableSelect = document.getElementById('table_id');
+                            const priceDifference = document.getElementById('price_difference');
+
+                            let selectedPrice = parseFloat({{ $reservation->table->price }});
+
+                            tableSelect.addEventListener('change', function() {
+                                const selectedOption = tableSelect.options[tableSelect.selectedIndex];
+                                const newPrice = parseFloat(selectedOption.getAttribute('data-price'));
+
+                                const difference = newPrice - selectedPrice;
+
+                                let formattedDifference = '';
+                                if (difference > 0) {
+                                    formattedDifference = `A pagar: R$${Math.abs(difference).toFixed(2)}`;
+                                } else if (difference < 0) {
+                                    formattedDifference = `Estorno: R$${Math.abs(difference).toFixed(2)}`;
+                                } else {
+                                    formattedDifference = 'Não há diferença de preço';
+                                }
+
+                                priceDifference.value = formattedDifference;
+                            });
+                        });
+                    </script>
 
                     <div class="sm:col-span-6">
                         <label for="guest_number" class="block text-sm font-medium text-gray-700"> Qtd de Convidados
@@ -136,7 +163,16 @@
                                 value="{{ old('idade', $reservation->idade) }}"
                                 class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                         </div>
+                        <div class="sm:col-span-6 pt-5">
+                            <label class="block text-sm font-medium text-gray-700">Diferença de Preço</label>
+                            <div class="mt-1">
+                                <input
+                                    class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                    type="text" id="price_difference" name="price_difference" readonly>
+                            </div>
+                        </div>
                         <div class="mt-6 p-4">
+
                             <button type="submit"
                                 class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Atualizar</button>
                         </div>

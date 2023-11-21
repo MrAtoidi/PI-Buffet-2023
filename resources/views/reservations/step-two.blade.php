@@ -28,13 +28,29 @@
                                     <div class="mt-1">
                                         <select id="table_id" name="table_id"
                                             class="form-multiselect block w-full mt-1">
+                                            <option value="" selected disabled>Escolha o seu pacote de comidas
+                                            </option>
                                             @foreach ($tables as $table)
-                                                <option value="{{ $table->id }}" @selected($table->id == $reservation->table_id)>
-                                                    R${{ $table->price }} {{ $table->name }}
-                                                    (Comporta {{ $table->guest_number }} convidados)
+                                                <option value="{{ $table->id }}" data-price="{{ $table->price }}"
+                                                    {{ $table->id == $reservation->table_id ? 'selected' : '' }}>
+                                                    {{ $table->name }} (Comporta
+                                                    {{ $table->guest_number }} convidados)
                                                 </option>
                                             @endforeach
                                         </select>
+
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const tableSelect = document.getElementById('table_id');
+                                                const selectedPrice = document.getElementById('selectedPrice');
+
+                                                tableSelect.addEventListener('change', function() {
+                                                    const selectedOption = tableSelect.options[tableSelect.selectedIndex];
+                                                    const selectedPriceValue = selectedOption.getAttribute('data-price');
+                                                    selectedPrice.textContent = `O preço da mesa selecionada é: R$${selectedPriceValue}`;
+                                                });
+                                            });
+                                        </script>
                                     </div>
                                     @error('table_id')
                                         <div class="text-sm text-red-400">{{ $message }}</div>
@@ -60,6 +76,13 @@
                                     @error('res_date')
                                         <div class="text-sm text-red-400">{{ $message }}</div>
                                     @enderror
+                                    <h4 id="selectedPrice">
+                                        @if (!is_null($reservation->table_id))
+                                            Preço da reserva: R${{ $selectedTablePrice }}
+                                        @else
+                                            Nenhuma mesa selecionada
+                                        @endif
+                                    </h4>
                                 </div>
 
 
