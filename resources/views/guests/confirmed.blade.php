@@ -24,6 +24,9 @@
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Idade
                                         </th>
+                                        <th scope="col" class="relative py-3 px-6">
+                                            <span class="sr-only">Editar</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -40,6 +43,19 @@
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ $guest->age }}
+                                            </td>
+                                            <td>
+                                                <div class="flex space-x-2">
+                                                    <form
+                                                        class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                        method="POST"
+                                                        action="{{ route('guests.remove', ['guest' => $guest->id]) }}"
+                                                        onsubmit="return confirm('Você tem certeza?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit">Remover convidado</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
