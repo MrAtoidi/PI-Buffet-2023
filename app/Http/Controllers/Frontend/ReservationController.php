@@ -251,5 +251,4 @@ public function deleted()
 
     return view('guests.confirmed', compact('confirmedGuests', 'reservation'));
 }
-
 }

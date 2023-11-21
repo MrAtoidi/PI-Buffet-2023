@@ -29,6 +29,7 @@
                                 class="mb-3 text-xl font-semibold tracking-tight text-green-600 hover:text-green-400 uppercase">
                                 {{ $category->name }}</h4>
                             <span class="text-xl text-green-600">R${{ $category->price }}</span>
+                            <p class="leading-normal text-gray-700">{!! $category->description !!}</p>
                         </a>
 
                     </div>

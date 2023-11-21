@@ -29,8 +29,8 @@ class TimeBetween implements Rule
         $pickupDate = Carbon::parse($value);
         $pickupTime = Carbon::createFromTime($pickupDate->hour, $pickupDate->minute, $pickupDate->second);
         // when the restaurant is open
-        $earliestTime = Carbon::createFromTimeString('17:00:00');
-        $lastTime = Carbon::createFromTimeString('23:00:00');
+        $earliestTime = Carbon::createFromTimeString('00:00:00');
+        $lastTime = Carbon::createFromTimeString('23:59:59');
 
         return $pickupTime->between($earliestTime, $lastTime) ? true : false;
     }
