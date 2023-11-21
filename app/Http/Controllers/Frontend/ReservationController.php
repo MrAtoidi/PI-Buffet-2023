@@ -246,10 +246,9 @@ public function deleted()
     }
 
     public function confirmedGuests(Reservation $reservation)
-    {
-        $confirmedGuests = $reservation->guests()->get();
+{
+    $confirmedGuests = $reservation->guests()->get();
 
-        return view('guests.confirmed', compact('confirmedGuests', 'reservation'));
-    }
-
+    return view('guests.confirmed', compact('confirmedGuests', 'reservation'));
+}
 }

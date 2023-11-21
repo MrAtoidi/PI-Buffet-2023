@@ -131,7 +131,7 @@
                                         </x-dropdown-link>
                                     @endif
                                     @if (Auth::user()->is_admin <= 2 && Auth::user()->is_admin != 0)
-                                        <x-dropdown-link href="{{ route('login') }}"
+                                        <x-dropdown-link href="{{ route('admin.index') }}"
                                             class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
                                             style="font-size: 15px;padding-left: 15px;">
                                             {{ __('Setor Operacional') }}

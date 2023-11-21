@@ -38,16 +38,14 @@
                                                 </option>
                                             @endforeach
                                         </select>
-
                                         <script>
                                             document.addEventListener('DOMContentLoaded', function() {
                                                 const tableSelect = document.getElementById('table_id');
                                                 const selectedPrice = document.getElementById('selectedPrice');
-
                                                 tableSelect.addEventListener('change', function() {
                                                     const selectedOption = tableSelect.options[tableSelect.selectedIndex];
                                                     const selectedPriceValue = selectedOption.getAttribute('data-price');
-                                                    selectedPrice.textContent = `O preço da mesa selecionada é: R$${selectedPriceValue}`;
+                                                    selectedPrice.textContent = `O preço do pacote selecionada é: R$${selectedPriceValue}`;
                                                 });
                                             });
                                         </script>
@@ -66,13 +64,12 @@
                                             value="{{ $reservation && $reservation->res_date ? $reservation->res_date->format('Y-m-d\TH:i:s') : '' }}"
                                             class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                                     </div>
-                                    <div id="availability-msg" class="text-sm text-red-400"></div>
+                                    <div id="availability-msg" class="text-sm text-red-400 availability-msg"></div>
                                     <span class="text-xs"><a href="{{ route('reservations.timings') }}">Confira o nosso
                                             horário de disponibilidade.
                                             Clique
                                             aqui.</a></span>
-                                    <div class="availability-msg text-sm"></div>
-                                    <!-- Display availability message -->
+                                    <div id="availability-msg" class="text-sm text-red-400 availability-msg"></div>
                                     @error('res_date')
                                         <div class="text-sm text-red-400">{{ $message }}</div>
                                     @enderror

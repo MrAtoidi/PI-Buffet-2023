@@ -131,6 +131,8 @@
                                                     <div class="flex space-x-2">
                                                         <a href="{{ route('reservations.guest-edit', $reservation->id) }}"
                                                             class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white">Editar</a>
+                                                        <a href="{{ route('confirmation.form', $reservation->id) }}"
+                                                            class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">Convite</a>
                                                         <form
                                                             class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                                             method="POST"

@@ -72,19 +72,21 @@ Route::post('/reservations/{id}/review', [FrontendReviewController::class, 'save
 
 
 
+
+//
+
 Route::middleware('auth')->group(function () {
 Route::get('/confirmation/{reservation_id}', [FrontendGuestController::class, 'form'])->name('confirmation.form');
 Route::get('/admin/confirmation/{reservation_id}', [FrontendGuestController::class, 'adminForm'])->name('admin.confirmation.form');
 Route::post('/confirmation/{reservation_id}/save', [FrontendGuestController::class, 'save'])->name('confirmation.save');
-Route::post('/confirmation/{reservation_id}/save', [FrontendGuestController::class, 'adminSave'])->name('admin.confirmation.save');
+Route::post('/admin/confirmation/{reservation_id}/save', [FrontendGuestController::class, 'adminSave'])->name('admin.confirmation.save');
 Route::delete('/guests/{guest}', [FrontendGuestController::class, 'removeGuest'])->name('guests.remove');
 Route::post('/confirm-presence/{id}', [FrontendGuestController::class, 'confirmPresence'])->name('confirm-presence');
 Route::get('/reservations/{reservation}/confirmed-guests', [ReservationController::class, 'confirmedGuests'])
-    ->name('reservations.confirmed-guests');
+     ->name('reservations.confirmed-guests');
 Route::get('/admin/reservations/{reservation}/confirmed-guests', [ReservationController::class, 'adminConfirmedGuests'])
-    ->name('admin.reservations.confirmed-guests');
+     ->name('admin.reservations.confirmed-guests');
 });
-
 
 
 
