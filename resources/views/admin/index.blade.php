@@ -185,12 +185,11 @@
                                                                 <div class="flex space-x-2">
                                                                     <form
                                                                         class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white"
-                                                                        method="POST"
-                                                                        action="{{ route('admin.reservations.confirm', $reservation->id) }}>
+                                                                        action="{{ route('admin.reservations.confirmed-guests', $reservation->id) }}">
                                                                         @csrf
                                                                         <button type="submit">
-                                                                        Verificar
-                                                                        convidados</button>
+                                                                            Verificar
+                                                                            convidados</button>
                                                                     </form>
                                                                     <form
                                                                         class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white"
