@@ -1,4 +1,3 @@
-```markdown
 # Guia de Instalação - PI Buffet 2023
 
 Siga estes passos simples para instalar o PI Buffet 2023 e ter seu serviço em execução em poucos minutos!
